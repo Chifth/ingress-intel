@@ -1,8 +1,11 @@
 .DS_Store
-*.xccheckout
-*.xcscmblueprint
-xcuserdata
-Carthage/
-Pods/
+
+# Bundler
 .rubygems/
 bin/
+
+# Other
+_temp
+iitc
+*.paw
+*.chls
