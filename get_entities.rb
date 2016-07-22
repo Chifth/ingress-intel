@@ -13,6 +13,7 @@ require 'json'
 require 'FileUtils'
 require 'yaml'
 
+# ENV["http_proxy"] = "https://127.0.0.1:8888"
 
 def fetch_tile(tile_key)
   uri = URI.parse("https://www.ingress.com/r/getEntities")
@@ -23,7 +24,6 @@ def fetch_tile(tile_key)
   http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
   request = Net::HTTP::Post.new(uri.request_uri)
-  # request.set_form_data({"q" => "My query", "per_page" => "50"})
 
   post_body = []
   post_body << "{"
@@ -43,14 +43,16 @@ def fetch_tile(tile_key)
 
   cookies = ""
   private_data["Cookies"].each do |key, value|
-    cookies += "#{key}=#{value}"
+    cookies += "#{key}=#{value};"
   end
   request["Cookie"] = cookies
   # puts cookies
   # puts request
 
   response = http.request(request)
-  puts response
+  puts response.class.name + " " + response.code
+  puts "Set-Cookie: " + response.get_fields('set-cookie').to_s
+  puts ""
   puts response.body
 
   # json = JSON.parse(response.body)[0]
