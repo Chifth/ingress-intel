@@ -1,5 +1,8 @@
 .DS_Store
 
+# Sensitive
+private.yml
+
 # Bundler
 .rubygems/
 bin/
