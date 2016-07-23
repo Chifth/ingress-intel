@@ -9,9 +9,10 @@ Create a `private.yml` file and save it in the root of this repo after cloning. 
 ```yaml
 ---
 Headers:
-  -
+  - X-CSRFToken: *****
 Cookies:
-  -
+  - csrftoken: *****
+  - SACSID: *****
 ```
 
 ## License

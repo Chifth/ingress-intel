@@ -36,6 +36,7 @@ def fetch_tile(tile_key)
   request["Referer"] = referer
 
   private_data = YAML.load_file('private.yml')
+  puts private_data
 
   private_data["Headers"].each do |key, value|
     request[key] = value
