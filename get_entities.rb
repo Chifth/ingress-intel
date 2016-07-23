@@ -16,6 +16,8 @@ require 'yaml'
 # ENV["http_proxy"] = "https://127.0.0.1:8888"
 
 def fetch_tile(tile_key)
+  puts "Downloading data for tile #{tile_key}"
+
   uri = URI.parse("https://www.ingress.com/r/getEntities")
   referer = "https://www.ingress.com/intel"
 
