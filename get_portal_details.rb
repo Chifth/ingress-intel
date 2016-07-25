@@ -29,7 +29,7 @@ def fetch_portal_data(guid)
 
   post_body = []
   post_body << "{"
-  post_body << %Q<"guid":["#{guid}"],>
+  post_body << %Q<"guid":"#{guid}",>
   post_body << %Q<"v":"3372ba001844bd4a42680f3e6a2372d2490580f9">
   post_body << "}"
   # puts "post_body: #{post_body.join}"
@@ -61,4 +61,4 @@ def fetch_portal_data(guid)
   # json = JSON.parse(response.body)[0]
 end
 
-fetch_portal_data("e6edebeeedb0449cad7b3a6ab439fd54.16")
+fetch_portal_data("e4bf6e47b0334c5c8be778656d86e7f8.16")
