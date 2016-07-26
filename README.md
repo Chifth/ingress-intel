@@ -17,7 +17,7 @@ Cookies:
   SACSID: *****
 ```
 
-The CSRF token header and cookie values will be the same.
+The CSRF token header and cookie values will be the same and I haven't seen the change over time. However, the `SACSID` cookie changes each time the session expires.
 
 ## License
 
