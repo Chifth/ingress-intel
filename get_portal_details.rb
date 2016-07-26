@@ -15,27 +15,30 @@ require 'yaml'
 
 # ENV["http_proxy"] = "https://127.0.0.1:8888"
 
+# Global variables
+$version = "3372ba001844bd4a42680f3e6a2372d2490580f9"
+$referer = "https://www.ingress.com/intel"
+base_url = "https://www.ingress.com/r"
+$uri = URI.parse("#{base_url}/getPortalDetails")
+
 def fetch_portal_data(guid)
   puts "Downloading data for portal #{guid}"
 
-  uri = URI.parse("https://www.ingress.com/r/getPortalDetails")
-  referer = "https://www.ingress.com/intel"
-
-  http = Net::HTTP.new(uri.host, uri.port)
+  http = Net::HTTP.new($uri.host, $uri.port)
   http.use_ssl = true
   http.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
-  request = Net::HTTP::Post.new(uri.request_uri)
+  request = Net::HTTP::Post.new($uri.request_uri)
 
   post_body = []
   post_body << "{"
   post_body << %Q<"guid":"#{guid}",>
-  post_body << %Q<"v":"3372ba001844bd4a42680f3e6a2372d2490580f9">
+  post_body << %Q<"v":"#{$version}">
   post_body << "}"
   # puts "post_body: #{post_body.join}"
 
   request.body = post_body.join
-  request["Referer"] = referer
+  request["Referer"] = $referer
 
   private_data = YAML.load_file('private.yml')
   puts private_data
