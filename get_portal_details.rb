@@ -20,6 +20,9 @@ $version = "3372ba001844bd4a42680f3e6a2372d2490580f9"
 $referer = "https://www.ingress.com/intel"
 base_url = "https://www.ingress.com/r"
 $uri = URI.parse("#{base_url}/getPortalDetails")
+$output_folder = "portals"
+
+test_portal = "e4bf6e47b0334c5c8be778656d86e7f8.16"
 
 def fetch_portal_data(guid)
   puts "Downloading data for portal #{guid}"
@@ -61,7 +64,25 @@ def fetch_portal_data(guid)
   puts ""
   puts response.body
 
-  # json = JSON.parse(response.body)[0]
+  FileUtils::mkdir_p $output_folder
+  File.open("#{$output_folder}/#{guid}.json", 'w') {|file| file.write(response.body) }
 end
 
-fetch_portal_data("e4bf6e47b0334c5c8be778656d86e7f8.16")
+#
+# Parse arguments, build array of portal keys and fetch each one.
+#
+
+portals_to_download = []
+
+ARGV.each do |arg|
+  puts "Argument: #{arg}"
+  portals_to_download << arg
+end
+
+if portals_to_download.to_a.empty?
+  portals_to_download << test_portal
+end
+
+portals_to_download.each do |portal|
+  fetch_portal_data(portal)
+end
