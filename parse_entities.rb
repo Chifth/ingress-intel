@@ -22,17 +22,42 @@ $output_folder = "portals"
 
 test_tile = "16_4968_12056_0_8_100"
 
+def Portal
+  attr
+end
+
 def parse_tile(tile_key)
   puts "Extracting data from tile #{tile_key}"
 
+  contents = ""
   File.open("#{$input_folder}/#{tile_key}.json", 'r') { |file|
     contents = file.read()
-    puts contents
   }
+  json = JSON(contents)
+  entities = json['result']['map'][tile_key]['gameEntities']
 
-  # private_data["Cookies"].each do |key, value|
-  #   cookies += "#{key}=#{value};"
-  # end
+  entities.each do |entity_array|
+    key = entity_array[0]
+
+    # part after period indicates enty type?
+    # - 9
+    # - 12
+    # - 16 - portal
+    # - b
+    # - b_ab
+    # - b_ac
+
+    # Only working with portals right now
+    next if !key.end_with?('.16')
+
+    id = entity_array[1]
+    data_array = entity_array[2]
+    # 8 values - line between two portals?
+    # 3 values - field between three portals?
+    # 14 values - unlinked portal
+
+    puts "#{key} - #{data_array}"
+  end
 
   # FileUtils::mkdir_p $output_folder
   # File.open("#{$output_folder}/#{tile_key}.json", 'w') {|file| file.write(response.body) }
