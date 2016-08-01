@@ -22,8 +22,8 @@ $output_folder = "portals"
 
 test_tile = "16_4968_12056_0_8_100"
 
-def Portal
-  attr
+class Portal
+  attr_accessor :key, :id, :name, :faction, :imageUrl, :latitude, :longitude
 end
 
 def parse_tile(tile_key)
